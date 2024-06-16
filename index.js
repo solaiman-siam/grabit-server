@@ -29,10 +29,17 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     const categoryCollection = client.db("grabitDB").collection("categories");
+    const dealsCollection = client.db("grabitDB").collection("deals");
 
     // get all categories data
     app.get("/all-categories", async (req, res) => {
       const result = await categoryCollection.find().toArray();
+      res.send(result);
+    });
+
+    // get all deal
+    app.get("/deals", async (req, res) => {
+      const result = await dealsCollection.find().toArray();
       res.send(result);
     });
 
