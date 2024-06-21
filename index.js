@@ -30,6 +30,7 @@ async function run() {
   try {
     const categoryCollection = client.db("grabitDB").collection("categories");
     const dealsCollection = client.db("grabitDB").collection("deals");
+    const arrivalsCollection = client.db("grabitDB").collection("arrivals");
 
     // get all categories data
     app.get("/all-categories", async (req, res) => {
@@ -42,6 +43,23 @@ async function run() {
       const result = await dealsCollection.find().toArray();
       res.send(result);
     });
+
+    app.get('/arrivals', async (req, res) => {
+      const category = req.query.tabs
+      console.log(category);
+      const query = {category: category}
+      if(category !== "Clothes" || "Footwear" || "Accessories"){
+        const result = await arrivalsCollection.find(query).toArray();
+        res.send(result)
+      }else{
+
+        const result = await arrivalsCollection.find().toArray()
+        res.send(result)
+      }
+
+      
+    })
+    
 
     // Connect the client to the server	(optional starting in v4.7)
     // await client.connect();
