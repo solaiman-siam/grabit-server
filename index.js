@@ -46,16 +46,15 @@ async function run() {
 
     app.get('/arrivals', async (req, res) => {
       const category = req.query.tabs
-      console.log(category);
       const query = {category: category}
-      if(category !== "Clothes" || "Footwear" || "Accessories"){
+      if(category === "Clothes" || "Footwear" || "Accessories"){
         const result = await arrivalsCollection.find(query).toArray();
         res.send(result)
-      }else{
-
+      }else if(category === 'All' || ''){
         const result = await arrivalsCollection.find().toArray()
         res.send(result)
       }
+      
 
       
     })
