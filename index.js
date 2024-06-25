@@ -43,20 +43,20 @@ async function run() {
       const result = await dealsCollection.find().toArray();
       res.send(result);
     });
+    
 
+// get all arrivals products
     app.get('/arrivals', async (req, res) => {
+      const result = await arrivalsCollection.find().toArray()
+      res.send(result);
+    })
+
+// get tab search products
+    app.get('/tabSearch', async (req, res) => {
       const category = req.query.tabs
       const query = {category: category}
-      if(category === "Clothes" || "Footwear" || "Accessories"){
-        const result = await arrivalsCollection.find(query).toArray();
-        res.send(result)
-      }else if(category === 'All' || ''){
-        const result = await arrivalsCollection.find().toArray()
-        res.send(result)
-      }
-      
-
-      
+      const result = await arrivalsCollection.find(query).toArray();
+      res.send(result)
     })
     
 
